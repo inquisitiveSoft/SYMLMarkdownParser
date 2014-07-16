@@ -8,6 +8,9 @@
 //  Released under the MIT license: http://opensource.org/licenses/mit-license.php
 //
 
+@import Foundation;
+
+
 // Element keys
 extern NSString * const SYMLTextElementContent;
 

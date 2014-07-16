@@ -8,6 +8,9 @@
 //  Released under the MIT license: http://opensource.org/licenses/mit-license.php
 //
 
+@import Foundation;
+
+
 @protocol SYMLAttributedObjectCollection <NSObject>
 
 - (void)addAttributes:(NSDictionary *)attributes range:(NSRange)range;

@@ -8,6 +8,8 @@
 //  Released under the MIT license: http://opensource.org/licenses/mit-license.php
 //
 
+#import "SYMLMarkdownParser.h"
+
 
 // Element keys
 NSString * const SYMLTextStyleAttribute = @"SYMLTextStyleAttribute";
