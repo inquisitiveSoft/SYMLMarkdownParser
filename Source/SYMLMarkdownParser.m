@@ -163,16 +163,29 @@ BOOL SYMLParseMarkdownHeading(NSString *inputString, id <SYMLAttributedObjectCol
 	
 	if([inputString rangeOfString:@"#" options:0 range:parseState.searchRange].location == parseState.searchRange.location) {
 		// Match # hash style headings
+		__block BOOL isHeader = FALSE;
+		
 		[inputString enumerateSubstringsInRange:parseState.searchRange options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-			if([substring isEqualToString:@"#"])
+			if([substring isEqualToString:@"#"]) {
 				headingDepth++;
+				
+				// Don't recognise as a heading if there are more than 6 hashes
+				isHeader = headingDepth <= 6;
+			}
 			
-			relativeIncrement += enclosingRange.length;
-			
-			if([newlineCharacterSet characterIsMember:[substring characterAtIndex:0]])
+			if(isHeader) {
+				relativeIncrement += enclosingRange.length;
+				
+				if([newlineCharacterSet characterIsMember:[substring characterAtIndex:0]]) {
+					*stop = TRUE;
+				} else {
+					formattingRange.length += substringRange.length;
+				}
+			} else {
+				relativeIncrement = 0;
+				formattingRange.length = 0;
 				*stop = TRUE;
-			else
-				formattingRange.length += substringRange.length;
+			}
 		}];
 	} else if(parseState.searchRange.location > 0) {
 		// Match --- or === style headings

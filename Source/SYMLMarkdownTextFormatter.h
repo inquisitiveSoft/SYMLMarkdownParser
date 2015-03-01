@@ -12,7 +12,6 @@
 #import "SYMLTextElementsCollection.h"
 
 
-
 @interface SYMLMarkdownTextFormatter : NSObject <SYMLMarkdownParserAttributes>
 
 - (NSAttributedString *)formatString:(NSString *)inputString;

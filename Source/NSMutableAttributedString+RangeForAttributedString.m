@@ -18,7 +18,6 @@ NSString * const SYMLAttributedStringAssociatedElementCollection = @"SYMLAttribu
 @implementation NSMutableAttributedString (SYMLAddAttributesForRange)
 
 
-
 - (void)markSectionAsElement:(NSString *)elementKey withContent:(id)content range:(NSRange)range
 {
 }
