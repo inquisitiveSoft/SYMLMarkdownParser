@@ -39,7 +39,7 @@ BOOL NSRangesIntersect(NSRange firstRange, NSRange secondRange, NSRangeIntersect
 		&& firstRange.location <= secondRange.location + secondRange.length;
 	}
 	
-		// NSRangeIntersectionModeOverlap
+	// NSRangeIntersectionModeOverlap
 	return firstRange.location + firstRange.length > secondRange.location
 	&& firstRange.location < secondRange.location + secondRange.length;
 }
@@ -47,8 +47,9 @@ BOOL NSRangesIntersect(NSRange firstRange, NSRange secondRange, NSRangeIntersect
 
 NSRange NSRangeWithinEnclosingRange(NSRange interiorRange, NSRange enclosingRange)
 {
-	if(!NSRangesIntersect(interiorRange, enclosingRange, NSRangeIntersectionModeEdges) || interiorRange.location == NSNotFound || enclosingRange.location == NSNotFound)
+	if(!NSRangesIntersect(interiorRange, enclosingRange, NSRangeIntersectionModeEdges) || interiorRange.location == NSNotFound || enclosingRange.location == NSNotFound) {
 		return NSMakeRange(NSNotFound, 0);
+	}
 	
 	if(interiorRange.location < enclosingRange.location) {
 		interiorRange.length = MAX(0, interiorRange.length - (interiorRange.location - enclosingRange.location));

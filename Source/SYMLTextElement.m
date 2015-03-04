@@ -17,8 +17,9 @@
 
 + (instancetype)elementForURL:(NSURL *)url withRange:(NSRange)range
 {
-	if(!url)
+	if(!url) {
 		return nil;
+	}
 	
 	SYMLTextElement *element = [[SYMLTextElement alloc] init];
 	element.type = SYMLTextLinkURLElement;
@@ -47,12 +48,13 @@
 	NSMutableString *description = [[super description] mutableCopy];
 	[description appendFormat:@" %@ %@", NSStringFromRange(self.range), self.type];
 	
-	if([self.type isEqualToString:SYMLTextLinkElement])
+	if([self.type isEqualToString:SYMLTextLinkElement]) {
 		[description appendFormat:@" {name:'%@', tag:'%@' link:'%@'}", self.linkName ? : @"", self.linkTag ? : @"", self.linkURLString ? : @""];
-	else if(self.URL)
+	} else if(self.URL) {
 		[description appendFormat:@" {url:%@}", self.URL];
-	else if(self.content)
+	} else if(self.content) {
 		[description appendFormat:@" {%@}", self.content];
+	}
 	
 	return [description copy];
 }

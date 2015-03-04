@@ -101,9 +101,10 @@ SYMLMarkdownParserState SYMLParseMarkdown(NSString *inputString,
 
 SYMLMarkdownParserState parseMarkdownBlockRecursively(NSString *inputString, id <SYMLAttributedObjectCollection> *outResult, SYMLMarkdownParserState parseState, id <SYMLMarkdownParserAttributes> attributes, NSInteger *incrementToReturn)
 {
-	if(parseState.currentRecursionDepth >= parseState.maximumRecursionDepth)
+	if(parseState.currentRecursionDepth >= parseState.maximumRecursionDepth) {
 		return parseState;
-		
+	}
+	
 	while(parseState.searchRange.location < parseState.textLength) {
 		parseState.searchRange = NSMakeRange(parseState.searchRange.location, parseState.textLength - parseState.searchRange.location);
 		
@@ -144,8 +145,9 @@ SYMLMarkdownParserState parseMarkdownBlockRecursively(NSString *inputString, id 
 		parseState.previousLineType = lineType;
 	}
 	
-	if(incrementToReturn != NULL)
+	if(incrementToReturn != NULL) {
 		*incrementToReturn += parseState.searchRange.location;
+	}
 	
 	return parseState;
 }
@@ -224,8 +226,9 @@ BOOL SYMLParseMarkdownHeading(NSString *inputString, id <SYMLAttributedObjectCol
 	}
 	
 	if(relativeIncrement > 0) {
-		if(increment != NULL)
+		if(increment != NULL) {
 			*increment += relativeIncrement;
+		}
 		
 		return TRUE;
 	}
@@ -277,8 +280,9 @@ BOOL SYMLParseMarkdownHorizontalRule(NSString *inputString, id <SYMLAttributedOb
 		}
 	}
 	
-	if(increment != NULL)
+	if(increment != NULL) {
 		*increment += enclosingLength;
+	}
 	
 	return enclosingLength > 0;
 }
@@ -315,12 +319,14 @@ BOOL SYMLParseMarkdownBlockquotes(NSString *inputString, id <SYMLAttributedObjec
 			parseMarkdownBlockRecursively(inputString, outResult, currentParseState, attributes, increment);
 		}
 		
-		if(lineType != NULL)
+		if(lineType != NULL) {
 			*lineType = SYMLMarkdownParserLineTypeBlockquote;
+		}
 		
-		if(increment != NULL)
+		if(increment != NULL) {
 			*increment = NSMaxRange(trailingRange) - parseState.searchRange.location;
-
+		}
+		
 		return TRUE;
 	}
 	
@@ -359,11 +365,13 @@ BOOL SYMLParseMarkdownList(NSString *inputString, id <SYMLAttributedObjectCollec
 			currentParseState.shouldParseLists = FALSE;
 			parseMarkdownBlockRecursively(inputString, outResult, currentParseState, attributes, NULL);
 			
-			if(lineType != NULL)
+			if(lineType != NULL) {
 				*lineType = SYMLMarkdownParserLineTypeList;
+			}
 			
-			if(increment != NULL)
+			if(increment != NULL) {
 				*increment += rangeOfLine.length;
+			}
 			
 			return TRUE;
 		}
@@ -449,8 +457,9 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 						remainingLineRange.length -= inlineState.linkURL.length;
 						inlineState.linkTitle = [inputString rangeOfRegex:SYMLMarkdownParserRegexToMatchLinkTitle options:0 inRange:remainingLineRange capture:2 error:nil];
 						
-						if(inlineState.linkTitle.location == NSNotFound && lineType != NULL)
+						if(inlineState.linkTitle.location == NSNotFound && lineType != NULL) {
 							*lineType = SYMLMarkdownParserLineTypeLink;
+						}
 						
 						commitAppearance = TRUE;
 						isNewline = TRUE;
@@ -718,8 +727,9 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 //					} else if([itemString isMatchedByRegex:SYMLMarkdownParserRegexToMatchEmailAddresses]) {
 //						// SYMLEmailAttribute
 ////						[*outResult markSectionAsElement:SYMLTextEmailElement withContent:itemString range:htmlElement];
-//					} else
+//					} else {
 //						itemString = nil;
+//					}
 //
 //					if(itemString) {
 //						if(parseState.hasLinkAttributes) {
@@ -737,14 +747,16 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 		
 		enclosingLength++;
 		
-		if(isNewline)
+		if(isNewline) {
 			break;
+		}
 	}
 	
 		
 	if(enclosingLength > 0) {
-		if(increment != NULL)
+		if(increment != NULL) {
 			*increment += enclosingLength;
+		}
 		
 		return TRUE;
 	}
@@ -780,11 +792,13 @@ void SYMLParseContinuingBlockquote(NSString *inputString, id <SYMLAttributedObje
 			currentParseState.searchRange = lineRange;
 			parseMarkdownBlockRecursively(inputString, outResult, currentParseState, attributes, NULL);
 			
-			if(lineType != NULL)
+			if(lineType != NULL) {
 				*lineType = SYMLMarkdownParserLineTypeBlockquote;
+			}
 			
-			if(increment != NULL)
+			if(increment != NULL) {
 				*increment += lineRange.length;
+			}
 		}
 	}
 	
@@ -800,9 +814,10 @@ void SYMLParseTrailingLinkTitle(NSString *inputString, id <SYMLAttributedObjectC
 					"A geeky webcomic with a romantic heart"
 	*/
 
-	if(!parseState.shouldParseLinks)
+	if(!parseState.shouldParseLinks) {
 		return;
-
+	}
+	
 	__block NSInteger formatLength = 0;
 	__block NSInteger enclosingLength = 0;
 	__weak id <SYMLAttributedObjectCollection> textInput = *outResultInput;
@@ -824,6 +839,7 @@ void SYMLParseTrailingLinkTitle(NSString *inputString, id <SYMLAttributedObjectC
 	}];
 	
 	
-	if(enclosingLength > 0)
+	if(enclosingLength > 0) {
 		*increment += enclosingLength;
+	}
 }

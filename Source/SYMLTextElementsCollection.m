@@ -96,14 +96,16 @@
 			if([element.type isEqualToString:SYMLTextLinkElement] && NSIntersectionRange(element.range, range).length != 0) {
 				
 				if([content isKindOfClass:[NSString class]]) {
-					if(isLinkNameElement)
+					if(isLinkNameElement) {
 						element.linkName = content;
-					else if(isLinkTagElement)
+					} else if(isLinkTagElement) {
 						element.linkTag = content;
-					else
+					} else {
 						element.linkURLString = content;
-				} else if(isLinkURLElement && [content isKindOfClass:[NSURL class]])
+					}
+				} else if(isLinkURLElement && [content isKindOfClass:[NSURL class]]) {
 					element.URL = content;
+				}
 				
 				// Expand the range of the element
 				element.range = NSUnionRange(element.range, range);
@@ -138,10 +140,11 @@
 		SYMLTextElement *firstElement = firstObject;
 		SYMLTextElement *secondElement = secondObject;
 		
-		if(firstElement.range.location == secondElement.range.location)
+		if(firstElement.range.location == secondElement.range.location) {
 			return NSOrderedSame;
-		else if(firstElement.range.location < secondElement.range.location)
+		} else if(firstElement.range.location < secondElement.range.location) {
 			return NSOrderedAscending;
+		}
 		
 		return NSOrderedDescending;
 	}];
@@ -150,8 +153,9 @@
 
 - (NSArray *)elementsMatchingTypes:(NSArray *)types
 {
-	if(!types || [types count] == 0)
+	if(!types || [types count] == 0) {
 		return nil;
+	}
 	
 	NSArray *elements = self.elements;
 	NSMutableArray *matchingElements = [[NSMutableArray alloc] initWithCapacity:[elements count]];
@@ -169,10 +173,11 @@
 		SYMLTextElement *firstElement = firstObject;
 		SYMLTextElement *secondElement = secondObject;
 		
-		if(firstElement.range.location == secondElement.range.location)
+		if(firstElement.range.location == secondElement.range.location) {
 			return NSOrderedSame;
-		else if(firstElement.range.location < secondElement.range.location)
+		} else if(firstElement.range.location < secondElement.range.location) {
 			return NSOrderedAscending;
+		}
 		
 		return NSOrderedDescending;
 	}];
@@ -199,10 +204,11 @@
 		SYMLTextElement *firstElement = firstObject;
 		SYMLTextElement *secondElement = secondObject;
 		
-		if(firstElement.range.location == secondElement.range.location)
+		if(firstElement.range.location == secondElement.range.location) {
 			return NSOrderedSame;
-		else if(firstElement.range.location < secondElement.range.location)
+		} else if(firstElement.range.location < secondElement.range.location) {
 			return NSOrderedAscending;
+		}
 		
 		return NSOrderedDescending;
 	}];
