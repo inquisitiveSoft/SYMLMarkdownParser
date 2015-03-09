@@ -10,9 +10,23 @@
 
 #import "SYMLTextElement.h"
 #import "SYMLMarkdownParserAttributes.h"
+#import "NSString+SubstringWithUntestedRange.h"
 
 
 @implementation SYMLTextElement
+
+
++ (NSDataDetector *)linkDetector;
+{
+	static NSDataDetector *dataDetector = nil;
+	static dispatch_once_t createDataDetector;
+	dispatch_once(&createDataDetector, ^{
+		NSTextCheckingTypes typesToDetect = NSTextCheckingTypeLink;
+		dataDetector = [NSDataDetector dataDetectorWithTypes:typesToDetect error:nil];
+	});
+	
+	return dataDetector;
+}
 
 
 + (instancetype)elementForURL:(NSURL *)url withRange:(NSRange)range
@@ -29,6 +43,24 @@
 	return element;
 }
 
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	SYMLTextElement *element = [[SYMLTextElement alloc] init];
+	element.type = self.type;
+	element.URL = self.URL;
+	element.content = self.content;
+	
+	element.linkName = self.linkName;
+	element.linkTag = self.linkTag;
+	element.linkURLString = self.linkURLString;
+	
+	element.range = self.range;
+	
+	return element;
+}
+
+
 - (void)setContent:(id)content
 {
 	if([content isKindOfClass:[NSURL class]]) {
@@ -40,6 +72,18 @@
 	}
 	
 	_content = content;
+}
+
+
+- (void)setLinkURLString:(NSString *)linkURLString
+{
+	_linkURLString = linkURLString;
+
+	// Try and parse a URL from the link string
+	if(linkURLString.length && !self.URL) {
+		NSTextCheckingResult *linkResult = [[SYMLTextElement linkDetector] firstMatchInString:linkURLString options:0 range:[linkURLString ajk_range]];
+		self.URL =  linkResult.URL;
+	}
 }
 
 
@@ -59,5 +103,16 @@
 	return [description copy];
 }
 
+
+- (SYMLTextElement *)elementWithOffset:(NSInteger)offset
+{
+	SYMLTextElement *element = [self copy];
+	
+	NSRange elementRange = self.range;
+	elementRange.location += offset;
+	element.range = elementRange;
+	
+	return element;
+}
 
 @end

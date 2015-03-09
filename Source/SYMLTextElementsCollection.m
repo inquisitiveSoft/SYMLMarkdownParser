@@ -136,7 +136,14 @@
 
 - (NSArray *)allElements
 {
-	return [self.elements sortedArrayUsingComparator:^NSComparisonResult(id firstObject, id secondObject) {
+	NSMutableArray *allElements = [[NSMutableArray alloc] initWithCapacity:[self.elements count]];
+	
+	for(SYMLTextElement *element in self.elements) {
+		SYMLTextElement *adjustedElement = [element elementWithOffset:self.offset];
+		[allElements addObject:adjustedElement];
+	}
+	
+	[allElements sortUsingComparator:^NSComparisonResult(id firstObject, id secondObject) {
 		SYMLTextElement *firstElement = firstObject;
 		SYMLTextElement *secondElement = secondObject;
 		
@@ -148,6 +155,8 @@
 		
 		return NSOrderedDescending;
 	}];
+	
+	return allElements;
 }
 
 
@@ -163,11 +172,13 @@
 	for(SYMLTextElement *element in elements) {
 		for(NSString *elementType in types) {
 			if([element.type isEqualToString:elementType]) {
-				[matchingElements addObject:element];
+				SYMLTextElement *adjustedElement = [element elementWithOffset:self.offset];
+				[matchingElements addObject:adjustedElement];
 				break;
 			}
 		}
 	}
+	
 	
 	[matchingElements sortUsingComparator:^NSComparisonResult(id firstObject, id secondObject) {
 		SYMLTextElement *firstElement = firstObject;
@@ -188,15 +199,19 @@
 
 - (NSArray *)elementsForRange:(NSRange)rangeToMatch
 {
+	// Adjust position to be relative to the start of the textSection's range
+	rangeToMatch.location = MAX(0, rangeToMatch.location - self.offset);
+	
 	NSArray *elements = self.elements;
 	NSMutableArray *matchingElements = [[NSMutableArray alloc] initWithCapacity:[elements count]];
 	
 	
 	NSRangeIntersectionMode matchMode = rangeToMatch.length > 0 ? NSRangeIntersectionModeOverlap : NSRangeIntersectionModeEdges;
 	
-	for(SYMLTextElement *element in elements) {
-		if(NSRangesIntersect(rangeToMatch, [element range], matchMode)) {
-			[matchingElements addObject:element];
+	for(SYMLTextElement *relativeElement in elements) {
+		if(NSRangesIntersect(rangeToMatch, [relativeElement range], matchMode)) {
+			SYMLTextElement *adjustedElement = [relativeElement elementWithOffset:self.offset];
+			[matchingElements addObject:adjustedElement];
 		}
 	}
 	

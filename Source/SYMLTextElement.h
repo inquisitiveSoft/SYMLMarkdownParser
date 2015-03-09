@@ -12,18 +12,20 @@
 #import "SYMLMarkdownParserAttributes.h"
 
 
-@interface SYMLTextElement : NSObject
+@interface SYMLTextElement : NSObject <NSCopying>
 
 + (instancetype)elementForURL:(NSURL *)url withRange:(NSRange)range;
 
-@property (strong) NSString *type;
-@property (assign) NSRange range;
+@property (strong, nonatomic) NSString *type;
+@property (assign, nonatomic) NSRange range;
 
 @property (strong, nonatomic) NSString *content;
-@property (strong) NSURL *URL;
+@property (strong, nonatomic) NSURL *URL;
 
 // Link specific attributes
-@property (strong) NSString *linkName, *linkTag, *linkURLString;
+@property (strong, nonatomic) NSString *linkName, *linkTag, *linkURLString;
 
+
+- (SYMLTextElement *)elementWithOffset:(NSInteger)offset;
 
 @end

@@ -784,6 +784,7 @@ void SYMLParseContinuingBlockquote(NSString *inputString, id <SYMLAttributedObje
 			if(parseState.hasBlockquoteAttributes) {
 				[*outResult addAttributes:[attributes blockquoteAttributes] range:lineRange];
 			}
+			
 			// Parse the blockquotes contents
 			SYMLMarkdownParserState currentParseState = parseState;
 			currentParseState.currentRecursionDepth++;

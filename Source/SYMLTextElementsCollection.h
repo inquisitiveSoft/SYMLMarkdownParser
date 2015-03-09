@@ -1,3 +1,4 @@
+
 //
 //  SYMLTextElementsCollection.h
 //  Syml
@@ -23,6 +24,8 @@
 - (void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
 
 - (void)markSectionAsElement:(NSString *)elementKey withContent:(id)content range:(NSRange)range;
+
+@property (assign) NSInteger offset;
 
 - (NSArray *)allElements;
 - (NSArray *)elementsMatchingTypes:(NSArray *)types;
