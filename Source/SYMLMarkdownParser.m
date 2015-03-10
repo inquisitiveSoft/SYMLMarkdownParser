@@ -39,6 +39,29 @@ SYMLMarkdownParserState SYMLDefaultMarkdownParserState()
 }
 
 
+BOOL SYMLMarkdownParserStateInitialConditionsAreEqual(SYMLMarkdownParserState firstState, SYMLMarkdownParserState secondState)
+{
+	BOOL isEqual =	firstState.shouldParseMarkdown == secondState.shouldParseMarkdown &&
+					firstState.maximumRecursionDepth == secondState.maximumRecursionDepth &&
+					
+					// Block elements
+					firstState.shouldParseHeadings == secondState.shouldParseHeadings &&
+					firstState.shouldParseBlockquotes == secondState.shouldParseBlockquotes &&
+					firstState.shouldParseBlockcode == secondState.shouldParseBlockcode &&
+					firstState.shouldParseHorizontalRule == secondState.shouldParseHorizontalRule &&
+					firstState.shouldParseLists == secondState.shouldParseLists &&
+					
+					// Inline elements
+					firstState.shouldParseLinks == secondState.shouldParseLinks &&
+					firstState.shouldParseEmphasisAndStrongTags == secondState.shouldParseEmphasisAndStrongTags &&
+					firstState.shouldParseHTMLTags == secondState.shouldParseHTMLTags &&
+					
+					firstState.previousLineType == secondState.previousLineType;
+	
+	return isEqual;
+}
+
+
 SYMLMarkdownParserInlineState SYMLInitialParserInlineState()
 {
 	NSRange notFoundRange = NSMakeRange(NSNotFound, 0);

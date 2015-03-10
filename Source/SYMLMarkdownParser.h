@@ -61,6 +61,7 @@ typedef struct SYMLMarkdownParserState SYMLMarkdownParserState;
 
 
 SYMLMarkdownParserState SYMLDefaultMarkdownParserState();
+BOOL SYMLMarkdownParserStateInitialConditionsAreEqual(SYMLMarkdownParserState firstState, SYMLMarkdownParserState secondState);
 
 // Returns the state after parsing has completed
 SYMLMarkdownParserState SYMLParseMarkdown(NSString *inputString, id <SYMLAttributedObjectCollection> *result, SYMLMarkdownParserState parseState, id <SYMLMarkdownParserAttributes> attributes);
