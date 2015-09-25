@@ -417,8 +417,6 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 	
 	static NSString * const SYMLMarkdownParserRegexToMatchLinkURL = @"(\\s*)?([\\S]*)";
 	static NSString * const SYMLMarkdownParserRegexToMatchLinkTitle = @"(\\s*)?((\".*\")|('.*')|(\\(.*\\)))";
-//	static NSString * const SYMLMarkdownParserRegexToMatchURLs = @"^(?i)\\b((?:[a-z][\\w-]+:(?:/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:'\".,<>?«»“”‘’]))$";
-//	static NSString * const SYMLMarkdownParserRegexToMatchEmailAddresses = @"^[-+.\\w]{1,64}@[-.\\w]{1,64}\\.[-.\\w]{2,6}$";
 	static NSString * const SYMLMarkdownParserRegexToEndOfLine = @"^.*";
 	
 	
