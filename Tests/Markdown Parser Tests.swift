@@ -8,14 +8,13 @@
 
 import Cocoa
 import XCTest
-import SwiftyJSON
 
 
 class Markdown_Parser_Tests: XCTestCase {
 	
 	func exampleText() -> String {
 		let exampleDocumentURL = NSBundle.mainBundle().URLForResource("README", withExtension: "md")!
-		let exampleText = String(contentsOfURL: exampleDocumentURL, usedEncoding:nil, error:nil)
+		let exampleText = try? String(contentsOfURL: exampleDocumentURL, usedEncoding:nil)
 		return exampleText!
 	}
 	
@@ -37,12 +36,12 @@ class Markdown_Parser_Tests: XCTestCase {
 		var elementCollection : SYMLAttributedObjectCollection? = attributedString
 		
 		let outputState = SYMLParseMarkdown(text, &elementCollection, initialState, nil);
-		println("countElements(text): \(countElements(text))")
 		
-		attributedString.enumerateAttributesInRange(NSMakeRange(0, countElements(text)), options:NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired) {
-			(attributes :[NSObject : AnyObject]!, range :NSRange, stop :UnsafeMutablePointer<ObjCBool>) in
-			if(countElements(attributes) > 0) {
-				println("Attribute: \(attributes), \(range)")
+		let range = text.range
+		attributedString.enumerateAttributesInRange(range, options:NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired) {
+			(attributes :[String : AnyObject], range :NSRange, stop :UnsafeMutablePointer<ObjCBool>) in
+			if(attributes.count > 0) {
+				print("Attribute: \(attributes), \(range)")
 			}
 		}
 	}
@@ -50,7 +49,7 @@ class Markdown_Parser_Tests: XCTestCase {
 	func testParsingHTML() {
 		let initialState = SYMLDefaultMarkdownParserState()
 		let text = exampleText();
-		var collection = SYMLTextElementsCollection(string: text)
+		let collection = SYMLTextElementsCollection(string: text)
 		var elementCollection : SYMLAttributedObjectCollection? = collection
 
 		let outputState = SYMLParseMarkdown(text, &elementCollection, initialState, nil)
@@ -97,4 +96,36 @@ class Markdown_Parser_Tests: XCTestCase {
 //        }
 //    }
 
+	func test_detectMarkdownElements() {
+		let initialState = SYMLDefaultMarkdownParserState()
+		let text = exampleText();
+		let collection = SYMLTestTextElementsCollection(string: text)
+//		collection.addedElementBlock {
+//			
+//		}
+		
+		var elementCollection : SYMLAttributedObjectCollection? = collection
+		SYMLParseMarkdown(text, &elementCollection, initialState, nil);
+//		print("elementCollection: \( )")
+		
+	}
+	
+}
+
+
+class SYMLTestTextElementsCollection: SYMLTextElementsCollection {
+//
+//	override func markSectionAsElement(elementKey: String!, withContent content: AnyObject!, range: NSRange) {
+//		super.
+//	}
+//	
+}
+
+
+extension String {
+	
+	var range: NSRange {
+		return NSMakeRange(0, (self as NSString).length)
+	}
+	
 }

@@ -18,7 +18,6 @@
 		4A0B9120191EF5CF0069ACD0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0B911F191EF5CF0069ACD0 /* main.m */; };
 		4A0B912D191EF64E0069ACD0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A0B912B191EF64E0069ACD0 /* MainMenu.xib */; };
 		4A65E1BB1A43D83400B41D57 /* specs.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A65E1BA1A43D83400B41D57 /* specs.json */; };
-		4A65E1CD1A44562100B41D57 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A65E1C81A4455F900B41D57 /* SwiftyJSON.framework */; };
 		4AA468FA191CF6F10035E5E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA468F9191CF6F10035E5E8 /* Cocoa.framework */; };
 		4AA46919191CF6F10035E5E8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA46918191CF6F10035E5E8 /* XCTest.framework */; };
 		4AA4691A191CF6F10035E5E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA468F9191CF6F10035E5E8 /* Cocoa.framework */; };
@@ -30,6 +29,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A48A3EE1BB7565F004BAAEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A65E1BC1A4455F900B41D57 /* SwiftyJSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 030B6CC31A6E16E800C2D4F1;
+			remoteInfo = "SwiftyJSON OSX";
+		};
+		4A48A3F01BB7565F004BAAEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A65E1BC1A4455F900B41D57 /* SwiftyJSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 030B6CCD1A6E16E900C2D4F1;
+			remoteInfo = "SwiftyJSON OSXTests";
+		};
 		4A65E1C31A4455F900B41D57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A65E1BC1A4455F900B41D57 /* SwiftyJSON.xcodeproj */;
@@ -43,27 +56,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 2E4FEFE619575BE100351305;
 			remoteInfo = SwiftyJSONTests;
-		};
-		4A65E1C71A4455F900B41D57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A65E1BC1A4455F900B41D57 /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EC1C1C91A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSX;
-		};
-		4A65E1C91A4455F900B41D57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A65E1BC1A4455F900B41D57 /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EC1C1D31A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSXTests;
-		};
-		4A65E1CB1A44561700B41D57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A65E1BC1A4455F900B41D57 /* SwiftyJSON.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EC1C1C81A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSX;
 		};
 		4AA4691B191CF6F10035E5E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -132,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A65E1CD1A44562100B41D57 /* SwiftyJSON.framework in Frameworks */,
 				4AA4691A191CF6F10035E5E8 /* Cocoa.framework in Frameworks */,
 				4AA46919191CF6F10035E5E8 /* XCTest.framework in Frameworks */,
 			);
@@ -180,8 +171,8 @@
 			children = (
 				4A65E1C41A4455F900B41D57 /* SwiftyJSON.framework */,
 				4A65E1C61A4455F900B41D57 /* SwiftyJSONTests.xctest */,
-				4A65E1C81A4455F900B41D57 /* SwiftyJSON.framework */,
-				4A65E1CA1A4455F900B41D57 /* SwiftyJSONOSXTests.xctest */,
+				4A48A3EF1BB7565F004BAAEC /* SwiftyJSON.framework */,
+				4A48A3F11BB7565F004BAAEC /* SwiftyJSON OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -331,7 +322,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4A65E1CC1A44561700B41D57 /* PBXTargetDependency */,
 				4AA4691C191CF6F10035E5E8 /* PBXTargetDependency */,
 			);
 			name = "Markdown Parser ExampleTests";
@@ -346,6 +336,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MPE;
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Harry Jordan";
 				TargetAttributes = {
@@ -380,6 +372,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4A48A3EF1BB7565F004BAAEC /* SwiftyJSON.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyJSON.framework;
+			remoteRef = 4A48A3EE1BB7565F004BAAEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4A48A3F11BB7565F004BAAEC /* SwiftyJSON OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SwiftyJSON OSXTests.xctest";
+			remoteRef = 4A48A3F01BB7565F004BAAEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4A65E1C41A4455F900B41D57 /* SwiftyJSON.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -392,20 +398,6 @@
 			fileType = wrapper.cfbundle;
 			path = SwiftyJSONTests.xctest;
 			remoteRef = 4A65E1C51A4455F900B41D57 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4A65E1C81A4455F900B41D57 /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = 4A65E1C71A4455F900B41D57 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4A65E1CA1A4455F900B41D57 /* SwiftyJSONOSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftyJSONOSXTests.xctest;
-			remoteRef = 4A65E1C91A4455F900B41D57 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -460,11 +452,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4A65E1CC1A44561700B41D57 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftyJSONOSX;
-			targetProxy = 4A65E1CB1A44561700B41D57 /* PBXContainerItemProxy */;
-		};
 		4AA4691C191CF6F10035E5E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4AA468F5191CF6F10035E5E8 /* Markdown Parser Example */;

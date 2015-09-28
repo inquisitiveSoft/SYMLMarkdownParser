@@ -111,6 +111,7 @@ SYMLMarkdownParserState SYMLParseMarkdown(NSString *inputString,
 	parseState.hasStrongAttributes = [attributes respondsToSelector:@selector(strongAttributes)];
 	parseState.hasLinkAttributes = [attributes respondsToSelector:@selector(linkAttributes)];
 	parseState.hasLinkTitleAttributes = [attributes respondsToSelector:@selector(linkTitleAttributes)];
+	parseState.hasLinkTagAttributes = [attributes respondsToSelector:@selector(linkTagAttributes)];
 	parseState.hasLinkURLAttributes = [attributes respondsToSelector:@selector(urlAttributes)];
 	parseState.hasInvalidLinkAttributes = [attributes respondsToSelector:@selector(invalidLinkAttributes)];
 	
@@ -121,6 +122,7 @@ SYMLMarkdownParserState SYMLParseMarkdown(NSString *inputString,
 
 #pragma mark - Parser's core
 
+static NSInteger position = 0;
 
 SYMLMarkdownParserState parseMarkdownBlockRecursively(NSString *inputString, id <SYMLAttributedObjectCollection> *outResult, SYMLMarkdownParserState parseState, id <SYMLMarkdownParserAttributes> attributes, NSInteger *incrementToReturn)
 {
@@ -138,6 +140,13 @@ SYMLMarkdownParserState parseMarkdownBlockRecursively(NSString *inputString, id 
 			// Parse root level markdown elements
 			// Each of the following functions are expected to leave the cursor at the start of the following line
 			// They shouldn't expect to start at the beginning of a line
+			NSLog(@"range: %@", NSStringFromRange(parseState.searchRange));
+			
+			if(position > parseState.searchRange.location) {
+				
+			}
+			
+			position = parseState.searchRange.location;
 			
 			if( !(parseState.shouldParseHeadings && SYMLParseMarkdownHeading(inputString, outResult, parseState, attributes, &increment, &lineType)) &&
 				!(parseState.shouldParseBlockquotes && SYMLParseMarkdownBlockquotes(inputString, outResult, parseState, attributes, &increment, &lineType)) &&
@@ -218,7 +227,7 @@ BOOL SYMLParseMarkdownHeading(NSString *inputString, id <SYMLAttributedObjectCol
 		//		Starting at the beginning of the line, search for 3 or more -'s or ='s
 		//		possibly followed by some spaces or tabs before reaching the end of the line
 		
-		NSString *regexToMatchDashOrEqualsHeadings = @"^((-{3,})|(={3,}))[ \t]*?[\\r\\n]";
+		NSString *regexToMatchDashOrEqualsHeadings = @"^((-{3,})|(={3,}))[ \\t]*?([\\r\\n]|$)";
 		NSString *regexToMatchWordCharacters = @"\\w";
 		
 		NSRange underlineRange = [inputString rangeOfRegex:regexToMatchDashOrEqualsHeadings options:0 inRange:parseState.searchRange capture:0 error:NULL];
@@ -327,10 +336,10 @@ BOOL SYMLParseMarkdownBlockquotes(NSString *inputString, id <SYMLAttributedObjec
 		NSRange trailingRange = [inputString rangeOfRegex:regexToMatchBlockquoteLines options:0 inRange:parseState.searchRange capture:2 error:NULL];
 		
 		if(trailingRange.location != NSNotFound) {
-			[*outResult markSectionAsElement:SYMLTextBlockquoteElement withContent:nil range:rangeOfBlockquote];
+			[*outResult markSectionAsElement:SYMLTextBlockquoteElement withContent:nil range:trailingRange];
 			
 			if(parseState.hasBlockquoteAttributes) {
-				[*outResult addAttributes:[attributes blockquoteAttributes] range:rangeOfBlockquote];
+				[*outResult addAttributes:[attributes blockquoteAttributes] range:trailingRange];
 			}
 			
 			SYMLMarkdownParserState currentParseState = parseState;
@@ -425,7 +434,6 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 	
 	
 	for(NSInteger characterIndex = parseState.searchRange.location; characterIndex < NSMaxRange(parseState.searchRange); characterIndex++) {
-		
 		/*
 		 Parse inline elements on the given line
 		 =======================================
@@ -595,7 +603,7 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 				
 				// A link element overides an emphasis or strong element
 				NSRange labelRange;
-				labelRange.location  = inlineState.linkLabel.location;
+				labelRange.location = inlineState.linkLabel.location;
 				labelRange.length = NSMaxRange(inlineState.linkDefinition) - inlineState.linkLabel.location;
 				
 				// Draw the link element including all surrounding brackets [link][]
@@ -616,8 +624,8 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 					NSString *elementType = (inlineState.linkDefinition.length == 1) ? SYMLTextLinkTagElement : SYMLTextLinkNameElement;
 					[*outResult markSectionAsElement:elementType withContent:linkName range:labelRange];
 					
-					if(parseState.hasEmphasisAttributes) {
-						[*outResult addAttributes:[attributes emphasisAttributes] range:labelRange];
+					if(parseState.hasLinkTagAttributes) {
+						[*outResult addAttributes:[attributes linkTagAttributes] range:labelRange];
 					}
 				}
 				
@@ -636,8 +644,8 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 						}
 					} else {
 						// Otherwise draw the links tag [link][tag]
-						if(parseState.hasEmphasisAttributes) {
-							[*outResult addAttributes:[attributes emphasisAttributes] range:labelRange];
+						if(parseState.hasLinkTagAttributes) {
+							[*outResult addAttributes:[attributes linkTagAttributes] range:labelRange];
 						}
 						
 						// Attach an attribute to quickly find this tag

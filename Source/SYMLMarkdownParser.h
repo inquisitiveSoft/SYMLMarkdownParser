@@ -51,6 +51,7 @@ struct SYMLMarkdownParserState {
 	BOOL hasStrongAttributes;
 	BOOL hasLinkAttributes;
 	BOOL hasLinkTitleAttributes;
+	BOOL hasLinkTagAttributes;
 	BOOL hasLinkURLAttributes;
 	BOOL hasInvalidLinkAttributes;
 	
