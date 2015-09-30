@@ -145,8 +145,6 @@
 		elementIndex = element.range.location;
 		[self.elements addObject:element];
 	}
-	
-//	NSLog(@"%@ %@ %@", elementKey, NSStringFromRange(range), content);
 }
 
 

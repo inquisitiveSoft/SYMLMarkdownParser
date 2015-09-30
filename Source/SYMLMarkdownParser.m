@@ -122,7 +122,6 @@ SYMLMarkdownParserState SYMLParseMarkdown(NSString *inputString,
 
 #pragma mark - Parser's core
 
-static NSInteger position = 0;
 
 SYMLMarkdownParserState parseMarkdownBlockRecursively(NSString *inputString, id <SYMLAttributedObjectCollection> *outResult, SYMLMarkdownParserState parseState, id <SYMLMarkdownParserAttributes> attributes, NSInteger *incrementToReturn)
 {
@@ -140,14 +139,6 @@ SYMLMarkdownParserState parseMarkdownBlockRecursively(NSString *inputString, id 
 			// Parse root level markdown elements
 			// Each of the following functions are expected to leave the cursor at the start of the following line
 			// They shouldn't expect to start at the beginning of a line
-			NSLog(@"range: %@", NSStringFromRange(parseState.searchRange));
-			
-			if(position > parseState.searchRange.location) {
-				
-			}
-			
-			position = parseState.searchRange.location;
-			
 			if( !(parseState.shouldParseHeadings && SYMLParseMarkdownHeading(inputString, outResult, parseState, attributes, &increment, &lineType)) &&
 				!(parseState.shouldParseBlockquotes && SYMLParseMarkdownBlockquotes(inputString, outResult, parseState, attributes, &increment, &lineType)) &&
 				!(parseState.shouldParseBlockcode && SYMLParseMarkdownBlockcode(inputString, outResult, parseState, attributes, &increment, &lineType)) &&
@@ -391,6 +382,7 @@ BOOL SYMLParseMarkdownList(NSString *inputString, id <SYMLAttributedObjectCollec
 			
 			SYMLMarkdownParserState currentParseState = parseState;
 			currentParseState.searchRange = NSMakeRange(NSMaxRange(rangeOfListItem), NSMaxRange(rangeOfLine) - NSMaxRange(rangeOfListItem));
+			currentParseState.textLength = NSMaxRange(rangeOfLine);
 			currentParseState.currentRecursionDepth++;
 			currentParseState.shouldParseHeadings = FALSE;
 			currentParseState.shouldParseHorizontalRule = FALSE;
