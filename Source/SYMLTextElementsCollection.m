@@ -90,11 +90,6 @@
 	BOOL isLinkNameElement = [elementKey isEqualToString:SYMLTextLinkNameElement];
 	BOOL isLinkTagElement = [elementKey isEqualToString:SYMLTextLinkTagElement];
 	BOOL isLinkURLElement = [elementKey isEqualToString:SYMLTextLinkURLElement];
-
-	if([elementKey isEqualToString:SYMLTextLinkElement]) {
-		
-	}
-	
 	
 	if(isLinkNameElement || isLinkTagElement || isLinkURLElement) {
 		BOOL foundExistingLink = FALSE;
@@ -126,7 +121,6 @@
 			SYMLTextElement *element = [SYMLTextElement elementForURL:content withRange:range];
 			
 			if(element) {
-				NSLog(@"add link element: %@", element);
 				[self.elements addObject:element];
 			}
 		}
@@ -136,11 +130,6 @@
 		element.type = elementKey;
 		element.range = range;
 		element.content = content;
-		printf("add element: %s\n", [element.description UTF8String]);
-		
-		if(element.range.location < elementIndex) {
-			
-		}
 		
 		elementIndex = element.range.location;
 		[self.elements addObject:element];
