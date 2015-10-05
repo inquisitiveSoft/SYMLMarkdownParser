@@ -43,6 +43,7 @@ struct SYMLMarkdownParserState {
 	NSRange searchRange;
 	NSInteger currentRecursionDepth;
 	
+	// Cache respondToSelector: queries
 	BOOL hasHeadingAttributes;
 	BOOL hasHorizontalRuleAttributes;
 	BOOL hasBlockquoteAttributes;
@@ -55,6 +56,7 @@ struct SYMLMarkdownParserState {
 	BOOL hasLinkURLAttributes;
 	BOOL hasInvalidLinkAttributes;
 	
+	// The state that is passed on from state to state
 	SYMLMarkdownParserLineType previousLineType;
 };
 
