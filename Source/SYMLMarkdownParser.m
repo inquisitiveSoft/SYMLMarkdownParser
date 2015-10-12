@@ -15,6 +15,37 @@
 #import "NSString+SubstringWithUntestedRange.h"
 
 
+// Element keys
+NSString * const SYMLTextStyleAttribute = @"SYMLTextStyleAttribute";
+
+// Attributes to mark specific content
+NSString * const SYMLTextHeaderElement = @"SYMLTextHeaderElement";
+NSString * const SYMLTextHorizontalRuleElement = @"SYMLTextHorizontalRuleElement";
+NSString * const SYMLTextBlockquoteElement = @"SYMLTextBlockquoteElement";
+NSString * const SYMLTextListElement = @"SYMLTextListElement";
+NSString * const SYMLTextListTaskBrackets = @"SYMLTextListTaskBrackets";
+NSString * const SYMLTextListTaskStatus = @"SYMLTextListTaskStatus";
+NSString * const SYMLTextListLine = @"SYMLTextListLine";
+
+NSString * const SYMLTextLinkElement = @"SYMLTextLinkElement";
+NSString * const SYMLTextLinkNameElement = @"SYMLTextLinkNameElement";
+NSString * const SYMLTextLinkTagElement = @"SYMLTextLinkTagElement";
+NSString * const SYMLTextLinkURLElement = @"SYMLTextLinkURLElement";
+
+NSString * const SYMLTextEmailElement = @"SYMLTextEmailElement";
+NSString * const SYMLTextDateElement = @"SYMLTextDateElement";
+NSString * const SYMLTextAddressElement = @"SYMLTextAddressElement";
+NSString * const SYMLTextPhoneNumberElement = @"SYMLTextPhoneNumberElement";
+
+// Attributes that markdown parser uses to tag specific elements
+NSString * const SYMLLinkTagAttribute = @"SYMLLinkTagAttribute";
+NSString * const SYMLEmailAttribute = @"SYMLEmailAttribute";
+
+
+// Only to be used internally
+NSString * const SYMLMarkdownParserInlineStateAttribute = @"SYMLMarkdownParserInlineStateAttribute";
+
+
 
 SYMLMarkdownParserState SYMLDefaultMarkdownParserState()
 {
@@ -106,7 +137,8 @@ SYMLMarkdownParserState SYMLParseMarkdown(NSString *inputString,
 	parseState.hasHeadingAttributes = [attributes respondsToSelector:@selector(headingAttributes)];
 	parseState.hasHorizontalRuleAttributes = [attributes respondsToSelector:@selector(horizontalRuleAttributes)];
 	parseState.hasBlockquoteAttributes = [attributes respondsToSelector:@selector(blockquoteAttributes)];
-	parseState.hasListAttributes = [attributes respondsToSelector:@selector(listAttributes)];
+	parseState.hasListElementAttributes = [attributes respondsToSelector:@selector(listElementAttributes)];
+	parseState.hasListLineAttributes = [attributes respondsToSelector:@selector(listLineAttributes)];
 	parseState.hasEmphasisAttributes = [attributes respondsToSelector:@selector(emphasisAttributes)];
 	parseState.hasStrongAttributes = [attributes respondsToSelector:@selector(strongAttributes)];
 	parseState.hasLinkAttributes = [attributes respondsToSelector:@selector(linkAttributes)];
@@ -373,11 +405,19 @@ BOOL SYMLParseMarkdownList(NSString *inputString, id <SYMLAttributedObjectCollec
 		NSRange rangeOfListItem = [inputString rangeOfRegex:regexToMatchListItems options:0 inRange:rangeOfLine capture:0 error:NULL];
 		
 		if(rangeOfListItem.location != NSNotFound) {			
-			// Apply any formatting
+			// Tag the line as a list
+			[*outResult markSectionAsElement:SYMLTextListLine withContent:nil range:rangeOfLine];
+			
+			if(parseState.hasListLineAttributes) {
+				[*outResult addAttributes:[attributes listLineAttributes] range:rangeOfLine];
+			}
+			
+			
+			// Apply formatting to the list indicator
 			[*outResult markSectionAsElement:SYMLTextListElement withContent:nil range:rangeOfListItem];
 			
-			if(parseState.hasListAttributes) {
-				[*outResult addAttributes:[attributes listAttributes] range:rangeOfListItem];
+			if(parseState.hasListElementAttributes) {
+				[*outResult addAttributes:[attributes listElementAttributes] range:rangeOfListItem];
 			}
 			
 			SYMLMarkdownParserState currentParseState = parseState;

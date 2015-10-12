@@ -47,7 +47,8 @@ struct SYMLMarkdownParserState {
 	BOOL hasHeadingAttributes;
 	BOOL hasHorizontalRuleAttributes;
 	BOOL hasBlockquoteAttributes;
-	BOOL hasListAttributes;
+	BOOL hasListElementAttributes;
+	BOOL hasListLineAttributes;
 	BOOL hasEmphasisAttributes;
 	BOOL hasStrongAttributes;
 	BOOL hasLinkAttributes;

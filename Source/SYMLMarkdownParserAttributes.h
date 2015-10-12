@@ -19,6 +19,9 @@ extern NSString * const SYMLTextHeaderElement;
 extern NSString * const SYMLTextHorizontalRuleElement;
 extern NSString * const SYMLTextBlockquoteElement;
 extern NSString * const SYMLTextListElement;
+extern NSString * const SYMLTextListTaskBrackets;
+extern NSString * const SYMLTextListTaskStatus;
+extern NSString * const SYMLTextListLine;
 
 extern NSString * const SYMLTextLinkElement;
 extern NSString * const SYMLTextLinkNameElement;
@@ -34,6 +37,6 @@ extern NSString * const SYMLTextEmailElement;
 
 @protocol SYMLMarkdownParserAttributes <NSObject>
 @optional
-@property (readonly) NSDictionary *headingAttributes, *horizontalRuleAttributes, *blockquoteAttributes, *listAttributes, *emphasisAttributes, *strongAttributes, *linkAttributes, *linkTitleAttributes, *linkTagAttributes, *invalidLinkAttributes, *urlAttributes;
+@property (readonly) NSDictionary *headingAttributes, *horizontalRuleAttributes, *blockquoteAttributes, *listElementAttributes, *listLineAttributes, *emphasisAttributes, *strongAttributes, *linkAttributes, *linkTitleAttributes, *linkTagAttributes, *invalidLinkAttributes, *urlAttributes;
 
 @end

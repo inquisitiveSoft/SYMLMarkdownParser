@@ -11,34 +11,6 @@
 #import "SYMLMarkdownParser.h"
 
 
-// Element keys
-NSString * const SYMLTextStyleAttribute = @"SYMLTextStyleAttribute";
-
-// Attributes to mark specific content
-NSString * const SYMLTextHeaderElement = @"SYMLTextHeaderElement";
-NSString * const SYMLTextHorizontalRuleElement = @"SYMLTextHorizontalRuleElement";
-NSString * const SYMLTextBlockquoteElement = @"SYMLTextBlockquoteElement";
-NSString * const SYMLTextListElement = @"SYMLTextListElement";
-
-NSString * const SYMLTextLinkElement = @"SYMLTextLinkElement";
-NSString * const SYMLTextLinkNameElement = @"SYMLTextLinkNameElement";
-NSString * const SYMLTextLinkTagElement = @"SYMLTextLinkTagElement";
-NSString * const SYMLTextLinkURLElement = @"SYMLTextLinkURLElement";
-
-NSString * const SYMLTextEmailElement = @"SYMLTextEmailElement";
-NSString * const SYMLTextDateElement = @"SYMLTextDateElement";
-NSString * const SYMLTextAddressElement = @"SYMLTextAddressElement";
-NSString * const SYMLTextPhoneNumberElement = @"SYMLTextPhoneNumberElement";
-
-// Attributes that markdown parser uses to tag specific elements
-NSString * const SYMLLinkTagAttribute = @"SYMLLinkTagAttribute";
-NSString * const SYMLEmailAttribute = @"SYMLEmailAttribute";
-
-
-// Only to be used internally
-NSString * const SYMLMarkdownParserInlineStateAttribute = @"SYMLMarkdownParserInlineStateAttribute";
-
-
 struct SYMLMarkdownParserInlineState {
 	NSRange linkLabel;					//	the [link] label
 	NSRange linkDefinition;				//	the trailing : [] or ()
