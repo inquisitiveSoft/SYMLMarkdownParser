@@ -200,7 +200,7 @@
 }
 
 
-- (NSArray *)elementsForRange:(NSRange)rangeToMatch
+- (NSArray <SYMLTextElement *> *)elementsForRange:(NSRange)rangeToMatch
 {
 	// Adjust position to be relative to the start of the textSection's range
 	rangeToMatch.location = MAX(0, rangeToMatch.location - self.offset);

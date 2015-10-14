@@ -13,6 +13,8 @@
 #import "SYMLAttributedObjectCollection.h"
 
 
+@class SYMLTextElement;
+
 @interface SYMLTextElementsCollection : NSObject <SYMLAttributedObjectCollection>
 
 - (instancetype)initWithString:(NSString *)string;
@@ -27,8 +29,8 @@
 
 @property (assign) NSInteger offset;
 
-- (NSArray *)allElements;
-- (NSArray *)elementsMatchingTypes:(NSArray *)types;
-- (NSArray *)elementsForRange:(NSRange)range;
+- (NSArray <SYMLTextElement *> *)allElements;
+- (NSArray <SYMLTextElement *> *)elementsMatchingTypes:(NSArray *)types;
+- (NSArray <SYMLTextElement *> *)elementsForRange:(NSRange)range;
 
 @end
