@@ -1,6 +1,0 @@
-[submodule "Tests/SwiftyJSON"]
-	path = Tests/SwiftyJSON
-	url = https://github.com/SwiftyJSON/SwiftyJSON
-[submodule "RegexKitLite"]
-	path = RegexKitLite
-	url = https://github.com/samdeane/RegexKitLite.git
