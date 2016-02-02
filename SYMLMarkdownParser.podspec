@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SYMLMarkdownParser"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "SYMLMarkdownParser is a markdown parser that generates attributed strings"
   s.description  = <<-DESC
                    DESC
@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
 	s.framework = 'Foundation'
   s.requires_arc = true
 	
-  s.dependency "RegexKitLite", "~> 4.0.1"
+  s.dependency "RegexKitLite", "~> 4.0.6"
 end
