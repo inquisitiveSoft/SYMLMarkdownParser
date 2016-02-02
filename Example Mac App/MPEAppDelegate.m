@@ -9,7 +9,7 @@
 //
 
 #import "MPEAppDelegate.h"
-#import "SYMLMarkdownTextFormatter.h"
+#import "SYMLMarkdownTextFormatter-Mac.h"
 
 
 

@@ -9,7 +9,7 @@
 //
 
 
-#import "SYMLMarkdownTextFormatter.h"
+#import "SYMLMarkdownTextFormatter-Mac.h"
 #import "SYMLMarkdownParser.h"
 
 #import "SYMLAttributedObjectCollection.h"
