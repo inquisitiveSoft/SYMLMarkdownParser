@@ -1,8 +1,9 @@
 Pod::Spec.new do |s|
   s.name         = "SYMLMarkdownParser"
   s.version      = "1.0.0"
-  s.summary      = "SYMLMarkdownParser is a markdown parser that generates attributed strings"
+  s.summary      = "SYMLMarkdownParser is a streamlined markdown parser written in Objective-C"
   s.description  = <<-DESC
+		SYMLMarkdownParser is a markdown parser that detects the semantics of the input text as well as generating attributed strings
                    DESC
 
   s.homepage     = "https://github.com/inquisitivesoft/SYMLMarkdownParser"
