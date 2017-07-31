@@ -64,7 +64,7 @@ struct SYMLMarkdownParserState {
 typedef struct SYMLMarkdownParserState SYMLMarkdownParserState;
 
 
-SYMLMarkdownParserState SYMLDefaultMarkdownParserState();
+SYMLMarkdownParserState SYMLDefaultMarkdownParserState(void);
 BOOL SYMLMarkdownParserStateInitialConditionsAreEqual(SYMLMarkdownParserState firstState, SYMLMarkdownParserState secondState);
 
 // Returns the state after parsing has completed

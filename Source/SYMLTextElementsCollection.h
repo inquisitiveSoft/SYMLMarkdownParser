@@ -15,10 +15,12 @@
 
 @class SYMLTextElement;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SYMLTextElementsCollection : NSObject <SYMLAttributedObjectCollection>
 
 - (instancetype)initWithString:(NSString *)string;
-- (instancetype)initWithAttributedString:(NSString *)string withAttributes:(NSDictionary *)attributes;
+- (instancetype)initWithAttributedString:(NSString *)string withAttributes:(nullable NSDictionary *)attributes;
 
 - (NSAttributedString *)attributedString;
 
@@ -34,3 +36,5 @@
 - (NSArray <SYMLTextElement *> *)elementsForRange:(NSRange)range;
 
 @end
+
+NS_ASSUME_NONNULL_END

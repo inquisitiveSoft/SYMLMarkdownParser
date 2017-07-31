@@ -1,5 +1,5 @@
 //
-//  SYMLMarkdownTextFormatter-Mac.h
+//  SYMLMarkdownTextFormatter.h
 //  Syml
 //
 //  Created by Harry Jordan on 17/01/2013.

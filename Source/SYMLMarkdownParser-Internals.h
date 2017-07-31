@@ -54,5 +54,5 @@ BOOL SYMLParseParagraph(NSString *inputString, id <SYMLAttributedObjectCollectio
 void SYMLParseContinuingBlockquote(NSString *inputString, id <SYMLAttributedObjectCollection> *formattedText, SYMLMarkdownParserState parseState, id <SYMLMarkdownParserAttributes> attributes, NSInteger *increment, SYMLMarkdownParserLineType *lineType);
 void SYMLParseTrailingLinkTitle(NSString *inputString, id <SYMLAttributedObjectCollection> *formattedText, SYMLMarkdownParserState parseState, id <SYMLMarkdownParserAttributes> attributes, NSInteger *increment, SYMLMarkdownParserLineType *lineType);
 
-SYMLMarkdownParserInlineState SYMLInitialParserInlineState();
+SYMLMarkdownParserInlineState SYMLInitialParserInlineState(void);
 
