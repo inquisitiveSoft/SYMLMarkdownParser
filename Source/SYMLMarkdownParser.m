@@ -371,6 +371,7 @@ BOOL SYMLParseMarkdownBlockquotes(NSString *inputString, id <SYMLAttributedObjec
 			currentParseState.shouldParseHorizontalRule = FALSE;
 			currentParseState.previousLineType = SYMLMarkdownParserLineTypeNormal;
 			currentParseState.searchRange = trailingRange;
+			currentParseState.textLength = NSMaxRange(trailingRange);	// Parse only this line's content, as the list rule does. Without this the recursion re-parsed the rest of the document after every blockquote line.
 			parseMarkdownBlockRecursively(inputString, outResult, currentParseState, attributes, increment);
 		}
 		
@@ -852,6 +853,7 @@ void SYMLParseContinuingBlockquote(NSString *inputString, id <SYMLAttributedObje
 			currentParseState.shouldParseBlockquotes = FALSE;
 			currentParseState.previousLineType = SYMLMarkdownParserLineTypeNormal;
 			currentParseState.searchRange = lineRange;
+			currentParseState.textLength = NSMaxRange(lineRange);	// Parse only this line, as above.
 			parseMarkdownBlockRecursively(inputString, outResult, currentParseState, attributes, NULL);
 			
 			if(lineType != NULL) {
